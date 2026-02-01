@@ -13,7 +13,6 @@ import {
   updateComment,
   deleteComment
 } from "../utils/commentSlice";
-import { media } from "../utils/helper";
 import "./VideoPage.css";
 
 const VideoPage = () => {
@@ -75,14 +74,14 @@ const VideoPage = () => {
     <div className="video-page-wrapper">
       <div className="video-main">
 
-        <video className="video-player" src={media(currentVideo.videoPath)} controls />
+        <video className="video-player" src={currentVideo.videoUrl} controls />
 
         <h1 className="video-title">{currentVideo.title}</h1>
 
         <div className="video-top-bar">
           <div className="channel-left">
             <Link to={`/channel/${currentVideo.channel?._id}`} className="video-channel-row">
-              <img src={media(currentVideo.channel?.avatar)} className="video-channel-avatar" alt="" />
+              <img src={currentVideo.channel?.avatar} className="video-channel-avatar" alt="" />
               <div className="video-channel-text">
                 <span className="video-channel-name">
                   {currentVideo.channel?.channelName}
@@ -116,7 +115,7 @@ const VideoPage = () => {
               Share
             </button>
 
-            <a href={media(currentVideo.videoPath)} download className="download-btn">
+            <a href={currentVideo.videoPath} download className="download-btn">
               <span className="material-icons-outlined">download</span>
               Download
             </a>
@@ -182,7 +181,7 @@ const VideoPage = () => {
 
           {comments.map((c) => (
             <div key={c._id} className="comment">
-              <img src={media(c.user?.avatar)} className="comment-avatar" alt="" />
+              <img src={c.user?.avatar} className="comment-avatar" alt="" />
               <div className="comment-body">
                 <strong>{c.user?.username}</strong>
                 <p>{c.text}</p>
@@ -214,7 +213,7 @@ const VideoPage = () => {
         <h2>Recommendations</h2>
         {recommended.map(video => (
           <Link to={`/watch/${video._id}`} key={video._id} className="recommend-card">
-            <img src={media(video.thumbnailUrl)} alt={video.title} className="recommend-thumb" />
+            <img src={video.thumbnailUrl} alt={video.title} className="recommend-thumb" />
             <div className="recommend-info">
               <p className="recommend-title">{video.title}</p>
               <p className="recommend-channel">{video.channel?.channelName}</p>

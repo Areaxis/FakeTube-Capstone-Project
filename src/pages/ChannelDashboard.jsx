@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import api from "../api/axios";
-import { media } from "../utils/helper";
 import "./ChannelDashboard.css";
 
 /* Built-in categories (same as homepage filter) */
@@ -19,21 +18,21 @@ const ChannelDashboard = () => {
   const [showVideoForm, setShowVideoForm] = useState(false);
   const [editingVideo, setEditingVideo] = useState(null);
 
-  // Channel creation form data
+  // Channel creation form data (URL based)
   const [channelData, setChannelData] = useState({
     channelName: "",
     description: "",
-    avatarFile: null,
-    bannerFile: null
+    avatar: "",
+    banner: ""
   });
 
-  // Video upload form data
+  // Video upload form data (URL based)
   const [videoData, setVideoData] = useState({
     title: "",
     description: "",
     category: "",
-    videoFile: null,
-    thumbnailFile: null
+    videoUrl: "",
+    thumbnailUrl: ""
   });
 
   // ================= FETCH USER CHANNELS =================
@@ -60,16 +59,15 @@ const ChannelDashboard = () => {
   const handleChannelSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("channelName", channelData.channelName);
-    formData.append("description", channelData.description);
+    await api.post("/channels", {
+      channelName: channelData.channelName,
+      description: channelData.description,
+      avatar: channelData.avatar,
+      banner: channelData.banner
+    });
 
-    if (channelData.avatarFile) formData.append("avatar", channelData.avatarFile);
-    if (channelData.bannerFile) formData.append("banner", channelData.bannerFile);
-
-    await api.post("/channels", formData);
-
-    setChannelData({ channelName: "", description: "", avatarFile: null, bannerFile: null });
+    // Reset form
+    setChannelData({ channelName: "", description: "", avatar: "", banner: "" });
     setShowChannelForm(false);
     fetchMyChannels();
   };
@@ -78,22 +76,23 @@ const ChannelDashboard = () => {
   const handleVideoSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("title", videoData.title);
-    formData.append("description", videoData.description);
-    formData.append("category", videoData.category);
-    formData.append("channel", selectedChannel._id);
-
-    if (videoData.videoFile) formData.append("video", videoData.videoFile);
-    if (videoData.thumbnailFile) formData.append("thumbnail", videoData.thumbnailFile);
+    const payload = {
+      title: videoData.title,
+      description: videoData.description,
+      category: videoData.category,
+      videoUrl: videoData.videoUrl,
+      thumbnailUrl: videoData.thumbnailUrl,
+      channel: selectedChannel._id
+    };
 
     if (editingVideo) {
-      await api.put(`/videos/${editingVideo._id}`, formData);
+      await api.put(`/videos/${editingVideo._id}`, payload);
     } else {
-      await api.post("/videos", formData);
+      await api.post("/videos", payload);
     }
 
-    setVideoData({ title: "", description: "", category: "", videoFile: null, thumbnailFile: null });
+    // Reset form
+    setVideoData({ title: "", description: "", category: "", videoUrl: "", thumbnailUrl: "" });
     setEditingVideo(null);
     setShowVideoForm(false);
     fetchMyVideos(selectedChannel._id);
@@ -106,8 +105,8 @@ const ChannelDashboard = () => {
       title: video.title,
       description: video.description,
       category: video.category,
-      videoFile: null,
-      thumbnailFile: null
+      videoUrl: video.videoUrl,
+      thumbnailUrl: video.thumbnailUrl
     });
     setShowVideoForm(true);
   };
@@ -139,7 +138,7 @@ const ChannelDashboard = () => {
               className={`dashboard-channel-card ${selectedChannel?._id === ch._id ? "dashboard-channel-active" : ""}`}
               onClick={() => setSelectedChannel(ch)}
             >
-              <img src={media(ch.avatar)} alt="" className="dashboard-channel-avatar" />
+              <img src={ch.avatar} alt="" className="dashboard-channel-avatar" />
               <span className="dashboard-channel-name">{ch.channelName}</span>
             </div>
           ))}
@@ -156,18 +155,13 @@ const ChannelDashboard = () => {
             <input className="dashboard-input" value={channelData.channelName} onChange={e => setChannelData({ ...channelData, channelName: e.target.value })} required />
 
             <label>Description</label>
-            <textarea
-              className="dashboard-input"
-              rows={3}
-              value={channelData.description}
-              onChange={e => setChannelData({ ...channelData, description: e.target.value })}
-            />
+            <textarea className="dashboard-input" rows={3} value={channelData.description} onChange={e => setChannelData({ ...channelData, description: e.target.value })} />
 
-            <label>Channel Avatar</label>
-            <input className="dashboard-input" type="file" accept="image/*" onChange={e => setChannelData({ ...channelData, avatarFile: e.target.files[0] })} required />
+            <label>Channel Avatar URL</label>
+            <input className="dashboard-input" value={channelData.avatar} onChange={e => setChannelData({ ...channelData, avatar: e.target.value })} />
 
-            <label>Channel Banner</label>
-            <input className="dashboard-input" type="file" accept="image/*" onChange={e => setChannelData({ ...channelData, bannerFile: e.target.files[0] })} required />
+            <label>Channel Banner URL</label>
+            <input className="dashboard-input" value={channelData.banner} onChange={e => setChannelData({ ...channelData, banner: e.target.value })} />
 
             <div className="dashboard-form-actions">
               <button className="dashboard-primary-btn" type="submit">Save Channel</button>
@@ -187,7 +181,7 @@ const ChannelDashboard = () => {
               className="dashboard-primary-btn"
               onClick={() => {
                 setEditingVideo(null);
-                setVideoData({ title: "", description: "", category: "", videoFile: null, thumbnailFile: null });
+                setVideoData({ title: "", description: "", category: "", videoUrl: "", thumbnailUrl: "" });
                 setShowVideoForm(!showVideoForm);
               }}
             >
@@ -201,31 +195,21 @@ const ChannelDashboard = () => {
                 <input className="dashboard-input" value={videoData.title} onChange={e => setVideoData({ ...videoData, title: e.target.value })} required />
 
                 <label>Description</label>
-                <textarea
-                  className="dashboard-input"
-                  rows={4}
-                  value={videoData.description}
-                  onChange={e => setVideoData({ ...videoData, description: e.target.value })}
-                />
+                <textarea className="dashboard-input" rows={4} value={videoData.description} onChange={e => setVideoData({ ...videoData, description: e.target.value })} />
 
                 <label>Category</label>
-                <select
-                  className="dashboard-input"
-                  value={videoData.category}
-                  onChange={e => setVideoData({ ...videoData, category: e.target.value })}
-                  required
-                >
+                <select className="dashboard-input" value={videoData.category} onChange={e => setVideoData({ ...videoData, category: e.target.value })} required>
                   <option value="">Select category</option>
                   {CATEGORIES.map(cat => (
                     <option key={cat} value={cat}>{cat}</option>
                   ))}
                 </select>
 
-                <label>Video File</label>
-                <input className="dashboard-input" type="file" accept="video/mp4" onChange={e => setVideoData({ ...videoData, videoFile: e.target.files[0] })} required={!editingVideo} />
+                <label>Video URL</label>
+                <input className="dashboard-input" value={videoData.videoUrl} onChange={e => setVideoData({ ...videoData, videoUrl: e.target.value })} required />
 
-                <label>Thumbnail Image</label>
-                <input className="dashboard-input" type="file" accept="image/*" onChange={e => setVideoData({ ...videoData, thumbnailFile: e.target.files[0] })} />
+                <label>Thumbnail URL</label>
+                <input className="dashboard-input" value={videoData.thumbnailUrl} onChange={e => setVideoData({ ...videoData, thumbnailUrl: e.target.value })} />
 
                 <div className="dashboard-form-actions">
                   <button className="dashboard-primary-btn" type="submit">
@@ -243,7 +227,7 @@ const ChannelDashboard = () => {
             <div className="dashboard-video-grid">
               {videos.map((v) => (
                 <div key={v._id} className="dashboard-video-card">
-                  <img src={media(v.thumbnailUrl)} alt="" className="dashboard-video-thumb" />
+                  <img src={v.thumbnailUrl} alt="" className="dashboard-video-thumb" />
                   <p className="dashboard-video-title">{v.title}</p>
 
                   <div className="dashboard-video-actions">

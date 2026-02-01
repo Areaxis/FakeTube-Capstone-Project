@@ -18,6 +18,9 @@ const HomePage = () => {
     dispatch(fetchVideos({ category: name || "", search: query || "" }));
   }, [dispatch, name, query]);
 
+  const showEmpty = !loading && videos.length === 0;
+  const showLoading = loading && videos.length === 0;
+
   return (
     <div className="home">
 
@@ -25,10 +28,10 @@ const HomePage = () => {
       <CategoryBar />
 
       {/* Loading state */}
-      {loading && <h3>Loading videos...</h3>}
+      {showLoading && <h3>Loading videos...</h3>}
 
       {/* Empty state */}
-      {!loading && videos.length === 0 && (
+      {showEmpty && (
         <div className="empty-message">
           Sorry, there are no videos available at the moment
           <img

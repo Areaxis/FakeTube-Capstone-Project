@@ -1,16 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../api/axios";
 
-/* ================= REGISTER (WITH AVATAR FILE) ================= */
+/* ================= REGISTER ================= */
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
-  async (formData, { rejectWithValue }) => {
+  async (data, { rejectWithValue }) => {
     try {
-      const res = await api.post("/register", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      });
+      // Sending normal JSON now (NOT FormData)
+      const res = await api.post("/register", data);
 
       localStorage.setItem("token", res.data.token);
       return res.data.user;
@@ -44,7 +41,7 @@ export const loadUser = createAsyncThunk(
       const res = await api.get("/me");
       return res.data;
 
-    } catch (err) {
+    } catch {
       localStorage.removeItem("token");
       return rejectWithValue("Session expired");
     }

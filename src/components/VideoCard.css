@@ -1,0 +1,54 @@
+.video-card {
+  text-decoration: none;
+  color: black;
+}
+
+.thumbnail {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.video-meta {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.channel-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.video-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.video-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.channel-name,
+.views {
+  font-size: 14px;
+  color: #606060;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .video-card {
+    width: 100%;
+  }
+
+  .thumbnail {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+}

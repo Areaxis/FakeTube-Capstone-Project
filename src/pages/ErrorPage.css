@@ -1,0 +1,38 @@
+.error-page {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.error-gif {
+  width: 180px;
+  margin-bottom: 20px;
+}
+
+.error-page h1 {
+  font-size: 72px;
+  margin-bottom: 10px;
+}
+
+.error-page h2 {
+  margin-bottom: 10px;
+}
+
+.error-page p {
+  color: gray;
+  margin-bottom: 20px;
+}
+
+.home-btn {
+  display: inline-block;
+  padding: 10px 10px;
+  background: #ff0000;
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.home-btn:hover {
+  background: #cc0000;
+}

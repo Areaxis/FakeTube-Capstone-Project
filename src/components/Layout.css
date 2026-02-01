@@ -1,0 +1,72 @@
+/* ================= MAIN CONTENT WRAPPER ================= */
+.content {
+  padding: 20px 30px;
+  min-height: calc(100vh - 64px);
+  transition: margin-left 0.25s ease;
+  background-color: #ffffff;
+}
+
+/* ================= SIDEBAR STATES (DESKTOP) ================= */
+.content.with-sidebar {
+  margin-left: 240px; /* Sidebar full width */
+}
+
+.content.no-sidebar {
+  margin-left: 80px; /* Sidebar collapsed width */
+}
+
+/* ================= WATCH PAGE ================= */
+.content.full-width {
+  margin-left: 0;
+  padding: 20px 40px;
+}
+
+/* ================= AUTH PAGE (LOGIN / REGISTER ONLY) ================= */
+.auth-layout {
+  margin-left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 60px;
+  background: #ffffff;
+}
+
+/* ================= CHANNEL DASHBOARD ================= */
+.dashboard-layout {
+  margin-left: 0;   
+  padding: 20px 40px;
+  min-height: calc(100vh - 64px);
+  background: #ffffff;
+}
+
+
+/* If sidebar collapsed */
+.content.no-sidebar.dashboard-layout {
+  margin-left: 80px;
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .content,
+  .dashboard-layout,
+  .content.with-sidebar,
+  .content.no-sidebar {
+    margin-left: 0 !important;
+    padding: 12px 14px;
+  }
+
+  .content.full-width {
+    padding: 10px;
+  }
+
+  .auth-layout {
+    padding: 20px;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 480px) {
+  .content {
+    padding: 10px;
+  }
+}

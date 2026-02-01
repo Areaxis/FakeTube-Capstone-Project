@@ -1,0 +1,39 @@
+.home {
+  padding: 20px;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 10px;
+}
+
+.empty-message {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #606060;
+}
+
+.empty-img {
+    width: 200px;
+    height: 200px;
+    margin-top: 20px;
+}
+
+/* 💻 Small laptops & large tablets */
+@media (max-width: 1200px) {
+  .video-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 📱 Phones only */
+@media (max-width: 600px) {
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+}

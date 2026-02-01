@@ -1,0 +1,197 @@
+.yt-header {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  padding: 0 16px;
+  background: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid #ddd;
+  z-index: 1000;
+}
+
+/* LEFT + RIGHT TAKE EQUAL SPACE */
+.yt-header-left,
+.yt-header-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.yt-header-left {
+  gap: 12px;
+}
+
+.yt-header-right {
+  justify-content: flex-end;
+}
+
+/* MENU BUTTON */
+.menu-btn {
+  font-size: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* LOGO */
+.logo {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  color: black;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+}
+
+.logo-red {
+  color: red;
+  font-size: 20px;
+  margin-right: 4px;
+}
+
+.logo-name {
+  color: white;
+  border-radius: 35%;
+  padding: 5px;
+  background-color: red;
+}
+
+/* CENTER SEARCH BAR */
+.yt-header-center {
+  display: flex;
+  align-items: center;
+  width: 40%;
+  max-width: 600px;
+  min-width: 0; 
+}
+
+/* SEARCH INPUT */
+.search-input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 20px 0 0 20px;
+  outline: none;
+}
+
+/* SEARCH BUTTON */
+.search-btn {
+  padding: 2.4px 16px 4px 16px;
+  border: 1px solid #ccc;
+  border-left: none;
+  border-radius: 0 20px 20px 0;
+  background: #f8f8f8;
+  cursor: pointer;
+}
+
+.search-btn:hover {
+  background: #dcdcdc;
+}
+
+/* SIGN IN / LOGOUT BUTTON */
+.signin-btn {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #065fd4;
+  background: white;
+  color: #065fd4;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.signin-btn:hover {
+  background: #065fd4;
+  color: white;
+}
+
+/* USER INFO */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+/* Avatar */
+.useravatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: all 0.2s ease;
+}
+
+.useravatar:hover {
+  transform: scale(1.1);
+}
+
+/* Username */
+.username {
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 5px;
+  border-radius: 25%;
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+}
+
+.username:hover {
+  color: white;
+  background-color: blue;
+}
+
+/* MOBILE RESPONSIVE FIXES */
+/* just for ipadmini*/
+@media (max-width: 768px) {
+  .menu-btn {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Hide Fake + Tube text, keep red play icon */
+  .logo {
+    font-size: 0;
+  }
+
+  .logo-red {
+    font-size: 22px;
+    margin-right: 0;
+  }
+
+  .logo-name {
+    display: none;
+  }
+
+  .yt-header-center {
+    width: 100%;
+    max-width: none;
+    flex: 5;
+    margin: 0 8px;
+  }
+
+  .search-input {
+    min-width: 0;
+  }
+
+  .username {
+    display: none;
+  }
+
+  .menu-btn {
+    display: none;
+  }
+}
+

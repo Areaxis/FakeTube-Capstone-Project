@@ -1,0 +1,97 @@
+/* Prevent global sideways or accidental overflow */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* PAGE WRAPPER (fills screen BELOW fixed header) */
+.auth-page {
+  position: fixed;              /* take full viewport */
+  top: 60px;                    /* start right under header */
+  left: 0;
+  right: 0;
+  bottom: 0;                    /* stretch to bottom of screen */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #ffffff;
+  padding: 20px;
+  box-sizing: border-box;
+
+  overflow-y: auto;             /* scroll ONLY if form truly too tall */
+}
+
+/* CARD */
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Larger card on big screens */
+@media (min-width: 1200px) {
+  .auth-card {
+    max-width: 520px;
+  }
+}
+
+/* FORM */
+.auth-form {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-sizing: border-box;
+}
+
+/* TITLE */
+.auth-title {
+  text-align: center;
+}
+
+/* INPUTS */
+.auth-input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.auth-input:focus {
+  border-color: #065fd4;
+  outline: none;
+}
+
+/* BUTTON */
+.auth-button {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  background: #065fd4;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.auth-button:hover {
+  background: #054aa8;
+}
+
+/* TOGGLE TEXT */
+.auth-toggle {
+  text-align: center;
+  margin-top: 14px;
+  color: #065fd4;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.auth-toggle:hover {
+  color: #4a97fc;
+}

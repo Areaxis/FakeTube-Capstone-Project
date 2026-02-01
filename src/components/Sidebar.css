@@ -1,0 +1,111 @@
+.yt-sidebar {
+  width: 220px;
+  background: white;
+  border-right: 1px solid #ddd;
+  padding: 12px 0;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  /* Hide scrollbar by default */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar in Chrome, Edge, Safari */
+.yt-sidebar::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* Show scrollbar when hovering */
+.yt-sidebar:hover {
+  scrollbar-width: thin;
+}
+
+.yt-sidebar:hover::-webkit-scrollbar {
+  width: 8px;
+}
+
+.yt-sidebar:hover::-webkit-scrollbar-thumb {
+  background-color: #bbb;
+  border-radius: 10px;
+}
+
+.yt-sidebar:hover::-webkit-scrollbar-thumb:hover {
+  background-color: #999;
+}
+
+/* Extra scroll space at bottom */
+.yt-sidebar::after {
+  content: "";
+  display: block;
+  height: 24px;
+}
+
+/* Divider */
+.yt-sidebar hr {
+  border: none;
+  border-top: 1px solid #e5e5e5;
+  margin: 8px 0;
+}
+
+/* Lists */
+.yt-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.yt-sidebar li {
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.yt-sidebar li:hover {
+  background: #f2f2f2;
+}
+
+/* Links with icon + text alignment */
+.yt-sidebar a {
+  text-decoration: none;
+  color: #0f0f0f;
+  font-size: 14px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Material icon sizing */
+.material-icons-outlined {
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* Section title like "Explore" */
+.sidebar-title {
+  padding: 10px 20px 6px 20px;
+  font-size: 14px;
+  color: #606060;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.sidebar-item {
+  text-decoration: none;
+  color: #0f0f0f;
+  font-size: 16px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sidebar-item.active {
+  background: #e5e5e5;
+  font-weight: 500;
+  border-radius: 10px;
+  padding: 10px;
+}

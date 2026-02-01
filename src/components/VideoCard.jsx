@@ -1,9 +1,6 @@
 // Import Link for navigation to video watch page
 import { Link } from "react-router-dom";
 
-// Helper function to build full media URLs from backend paths
-import { media } from "../utils/helper";
-
 // Component styles
 import "./VideoCard.css";
 
@@ -13,30 +10,30 @@ const VideoCard = ({ video }) => {
     // Clicking the card navigates to the watch page of that video
     <Link to={`/watch/${video._id}`} className="video-card">
       
-      // Video thumbnail image
+      {/* Video thumbnail image */}
       <img
-        src={media(video.thumbnailUrl)}
+        src={video.thumbnailUrl}
         alt={video.title}
         className="thumbnail"
       />
 
       <div className="video-meta">
         
-        // Channel avatar image
+        {/* Channel avatar image */}
         <img
-          src={media(video.channel?.avatar)}
+          src={video.channel?.avatar}
           alt="channel avatar"
           className="channel-avatar"
         />
 
         <div className="video-text">
-          // Video title
+          {/* Video title */}
           <h4 className="video-title">{video.title}</h4>
 
-          // Channel name
+          {/* Channel name */}
           <p className="channel-name">{video.channel?.channelName}</p>
 
-          // View count, default to 0 if not available
+          {/* View count, default to 0 if not available */}
           <p className="views">{video.views || 0} views</p>
         </div>
       </div>

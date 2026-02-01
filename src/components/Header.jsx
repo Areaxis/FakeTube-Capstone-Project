@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { logout } from "../utils/authSlice";
-import { media } from "../utils/helper";
 import "./Header.css";
 
 const Header = ({ toggleSidebar }) => {
@@ -51,7 +50,7 @@ const Header = ({ toggleSidebar }) => {
           <>
             <Link to="/auth/channel" className="user-info">
               <span className="username">{user.username}</span>
-              <img className="useravatar" src={media(user.avatar)} alt="avatar" />
+              <img className="useravatar" src={user.avatar} alt="avatar" />
             </Link>
 
             <button onClick={() => dispatch(logout())} className="signin-btn">

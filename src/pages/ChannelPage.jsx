@@ -41,10 +41,10 @@ const ChannelPage = () => {
     <div className="cp-page">
       {/* HEADER */}
       <div className="cp-header">
-        <img src={media(channel.banner)} alt="" className="cp-banner" />
+        <img src={channel.banner} alt="" className="cp-banner" />
 
         <div className="cp-info">
-          <img src={media(channel.avatar)} alt="" className="cp-avatar" />
+          <img src={channel.avatar} alt="" className="cp-avatar" />
 
           <div className="cp-text">
             <h1 className="cp-name">{channel.channelName}</h1>
@@ -89,7 +89,7 @@ const ChannelPage = () => {
         <>
           <Link to={`/watch/${featured._id}`} className="cp-featured-card">
             <img
-              src={media(featured.thumbnailUrl)}
+              src={featured.thumbnailUrl}
               alt=""
               className="cp-featured-thumb"
             />
@@ -102,9 +102,9 @@ const ChannelPage = () => {
           <div className="cp-grid">
             {restVideos.map((v) => (
               <Link key={v._id} to={`/watch/${v._id}`} className="cp-card">
-                <img src={media(v.thumbnailUrl)} alt="" className="cp-thumb" />
+                <img src={v.thumbnailUrl} alt="" className="cp-thumb" />
                 <div className="cp-meta-row">
-                  <img src={media(channel.avatar)} alt="" className="cp-meta-avatar" />
+                  <img src={channel.avatar} alt="" className="cp-meta-avatar" />
                   <div>
                     <p className="cp-title">{v.title}</p>
                     <p className="cp-channel-name">{channel.channelName}</p>
@@ -122,9 +122,9 @@ const ChannelPage = () => {
         <div className="cp-grid">
           {videos.map((v) => (
             <Link key={v._id} to={`/watch/${v._id}`} className="cp-card">
-              <img src={media(v.thumbnailUrl)} alt="" className="cp-thumb" />
+              <img src={v.thumbnailUrl} alt="" className="cp-thumb" />
               <div className="cp-meta-row">
-                <img src={media(channel.avatar)} alt="" className="cp-meta-avatar" />
+                <img src={channel.avatar} alt="" className="cp-meta-avatar" />
                 <div>
                   <p className="cp-title">{v.title}</p>
                   <p className="cp-channel-name">{channel.channelName}</p>
